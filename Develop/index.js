@@ -16,11 +16,6 @@ const questions = [
     },
     {
     type: 'input',
-    name: 'Contents',
-    message: 'What is in the table of contents for your project?',
-    },
-    {
-    type: 'input',
     name: 'Installation',
     message: 'What is the required Installation for your project?',
     },
@@ -36,8 +31,8 @@ const questions = [
     },
     {
     type: 'input',
-    name: 'contribution',
-    message: 'What will the user need to know about contributing to your project?',
+    name: 'contributors',
+    message: 'Who will be contributing to your project?',
     },
     {
     type: 'input',
@@ -45,20 +40,25 @@ const questions = [
     message: 'What are your instructions for testing your project?',
     },
     {
-    
+    type: 'input',
+    name: 'Contents',
+    message: 'What is in the table of contents for your project?',
     },
 ];
 
-// function to write README file
-function writeToFile(fileName, data) {
-    this.fileName = fileName
-    this.data = data
-    this
-}
-
 // function to initialize program
 function init() {
-inquirer.prompt(questions);
+    inquirer.prompt(questions)
+    .then((data) => {
+            console.log(data);
+            const mkdwn = markdown(data);
+            console.log(markdown);
+            
+
+            fs.writeFile("README.md", markdown, (err) => {
+                err ? console.log(err) : console.log("Success!");
+            });
+        })
 }
 
 // function call to initialize program
